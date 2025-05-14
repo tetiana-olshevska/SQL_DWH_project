@@ -1,5 +1,11 @@
--- Creating tables within bronze layer. Populating tables with data from CSV files.
---**************************************************************************************
+/*
+===============================================================================
+DDL Script: Create Bronze Tables
+===============================================================================
+Creating tables within bronze schema.
+===============================================================================
+*/
+
 DROP TABLE IF EXISTS bronze.crm_cust_info;
 
 CREATE TABLE bronze.crm_cust_info (
@@ -16,19 +22,19 @@ DROP TABLE IF EXISTS bronze.crm_prd_info;
 
 CREATE TABLE bronze.crm_prd_info (
                                    prd_id       INT,
-                                   prd_key      VARCHAR(50),
-                                   prd_nm       VARCHAR(50),
+                                   prd_key      NVARCHAR(50),
+                                   prd_nm       NVARCHAR(50),
                                    prd_cost     INT,
-                                   prd_line     VARCHAR(50),
-                                   prd_start_dt TIMESTAMP,
-                                   prd_end_dt   TIMESTAMP
+                                   prd_line     NVARCHAR(50),
+                                   prd_start_dt DATETIME,
+                                   prd_end_dt   DATETIME
                                   );
 
 DROP TABLE IF EXISTS bronze.crm_sales_details;
 
 CREATE TABLE bronze.crm_sales_details (
-                                        sls_ord_num  VARCHAR(50),
-                                        sls_prd_key  VARCHAR(50),
+                                        sls_ord_num  NVARCHAR(50),
+                                        sls_prd_key  NVARCHAR(50),
                                         sls_cust_id  INT,
                                         sls_order_dt INT,
                                         sls_ship_dt  INT,
@@ -41,42 +47,23 @@ CREATE TABLE bronze.crm_sales_details (
 DROP TABLE IF EXISTS bronze.erp_loc_a101;
 
 CREATE TABLE bronze.erp_loc_a101 (
-                                  cid    VARCHAR(50),
-                                  cntry  VARCHAR(50)
+                                  cid    NVARCHAR(50),
+                                  cntry  NVARCHAR(50)
                                  );
 
 DROP TABLE IF EXISTS bronze.erp_cust_az12;
 
 CREATE TABLE bronze.erp_cust_az12 (
-                                    cid    VARCHAR(50),
+                                    cid    NVARCHAR(50),
                                     bdate  DATE,
-                                    gen    VARCHAR(50)
+                                    gen    NVARCHAR(50)
                                    );
 
 DROP TABLE IF EXISTS bronze.erp_px_cat_g1v2;
 
 CREATE TABLE bronze.erp_px_cat_g1v2 (
-                                      id           VARCHAR(50),
-                                      cat          VARCHAR(50),
-                                      subcat       VARCHAR(50),
-                                      maintenance  VARCHAR(50)
+                                      id           NVARCHAR(50),
+                                      cat          NVARCHAR(50),
+                                      subcat       NVARCHAR(50),
+                                      maintenance  NVARCHAR(50)
                                      );
-
---**************************************************************************************
-TRUNCATE TABLE bronze.crm_cust_info;
-COPY bronze.crm_cust_info FROM '[file_path]' DELIMITER ',' CSV HEADER;
-
-TRUNCATE TABLE bronze.crm_prd_info;
-COPY bronze.crm_prd_info FROM '[file_path]' DELIMITER ',' CSV HEADER;
-
-TRUNCATE TABLE bronze.crm_sales_details;
-COPY bronze.crm_sales_details FROM '[file_path]' DELIMITER ',' CSV HEADER;
-
-TRUNCATE TABLE bronze.erp_loc_a101;
-COPY bronze.erp_loc_a101 FROM '[file_path]' DELIMITER ',' CSV HEADER;
-
-TRUNCATE TABLE bronze.erp_cust_az12;
-COPY bronze.erp_cust_az12 FROM '[file_path]' DELIMITER ',' CSV HEADER;
-
-TRUNCATE TABLE bronze.erp_px_cat_g1v2;
-COPY bronze.erp_px_cat_g1v2 FROM '[file_path]' DELIMITER ',' CSV HEADER;
